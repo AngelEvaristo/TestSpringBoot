@@ -2,7 +2,7 @@
 name: Build and Push Image to AZURE ACR
 on:
   push:
-    branches: [ main-azure ]
+    branches: [ main ]
 jobs:
 
   extract-version:
