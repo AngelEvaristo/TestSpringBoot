@@ -1,5 +1,8 @@
 ---
 name: Build and Push Image to AZURE ACR
+
+run-name: "Build and Push Image to AZURE ACR SPRINGBOOT"
+
 on:
   push:
     branches: [ main ]
@@ -42,7 +45,7 @@ jobs:
       - name: Build & Push image
         env:
           ACR_REGISTRY: devopspruebatecylab.azurecr.io
-          ACR_REPOSITORY: devopsprueba
+          ACR_REPOSITORY: spring-boot-docker
           IMAGE_TAG: ${{ needs.extract-version.outputs.app_version }}      
         run: |
           echo -e "\e[32mBuild componente\e[0m"
