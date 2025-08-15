@@ -19,7 +19,7 @@ RUN mvn clean package -DskipTests
 # ========================
 # 2. Runtime stage
 # ========================
-FROM mcd.microsoft.com/openjdk/jdk:17-ubuntu as production
+FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu as production
 
 # Directorio de trabajo
 WORKDIR /app
