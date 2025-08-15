@@ -1,0 +1,52 @@
+---
+name: Build and Push Image to AZURE ACR
+on:
+  push:
+    branches: [ main-azure ]
+jobs:
+
+  extract-version:
+    runs-on: ubuntu-latest
+    outputs:
+      app_version: ${{ steps.get_version.outputs.version }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Get version from changelog
+        id: get_version
+        run: |
+          VERSION=$(grep -m1 -oP '(?<=## \[)[0-9]+\.[0-9]+\.[0-9]+' CHANGELOG.md)
+          echo "Version found: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+  build-and-push:
+    name: Build and Push to ACR
+    runs-on: ubuntu-latest
+    needs: extract-version
+    steps:
+      - name: Print version from previous job
+        run: |
+          echo "Version is: ${{ needs.extract-version.outputs.app_version }}"
+
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Configure ACR credentials
+        uses: azure/docker-login@v2
+        with:
+          login-server: devopspruebatecylab.azurecr.io # default: index.docker.io
+          username: ${{ secrets.AZURE_ACR_ACCESS_USER }}
+          password: ${{ secrets.AZURE_ACR_ACCESS_PASS }}  
+
+      - name: Build & Push image
+        env:
+          ACR_REGISTRY: devopspruebatecylab.azurecr.io
+          ACR_REPOSITORY: devopsprueba
+          IMAGE_TAG: ${{ needs.extract-version.outputs.app_version }}      
+        run: |
+          echo -e "\e[32mBuild componente\e[0m"
+          docker build -t $ACR_REGISTRY/$ACR_REPOSITORY:$IMAGE_TAG .
+          echo -e "\e[32mPush componente\e[0m"
+          docker push $ACR_REGISTRY/$ACR_REPOSITORY:$IMAGE_TAG
+   
