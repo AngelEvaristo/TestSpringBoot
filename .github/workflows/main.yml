@@ -49,9 +49,21 @@ jobs:
           IMAGE_TAG: ${{ needs.extract-version.outputs.app_version }}      
         run: |
           echo -e "\e[32mBuild componente\e[0m"
-          docker build -t $ACR_REGISTRY/$ACR_REPOSITORY:$IMAGE_TAG .
+          docker build -t mi-app:1.0 .        
+          # echo -e "\e[32mBuild componente\e[0m"
+          # docker build -t $ACR_REGISTRY/$ACR_REPOSITORY:$IMAGE_TAG .
           # echo -e "\e[32mPush componente\e[0m"
           # docker push $ACR_REGISTRY/$ACR_REPOSITORY:$IMAGE_TAG
+      - name: Check
+        env:
+          ACR_REGISTRY: devopspruebatecylab.azurecr.io
+          ACR_REPOSITORY: spring-boot-docker
+          IMAGE_TAG: ${{ needs.extract-version.outputs.app_version }}      
+        run: |
+          echo -e "\e[32mBuild componente\e[0m"
+          docker images
+          echo -e "\e[32mBuild componente\e[0m"
+          docker run -d --name mi-contenedor -p 8080:8080 mi-app:1.0
           echo -e "\e[32mBuild componente\e[0m"
           docker ps -a
           echo -e "\e[32mBuild componente\e[0m"
