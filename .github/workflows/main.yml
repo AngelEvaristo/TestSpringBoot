@@ -68,8 +68,11 @@ jobs:
           docker ps -a
           echo -e "\e[32mBuild componente\e[0m"
           docker ps
-          echo -e "\e[32mLOGS\e[0m"
-          docker logs mi-contenedor         
+          echo -e "\e[32mLOGS\e[0m"      
+          docker logs mi-contenedor
+          docker exec -it mi-contenedor sh
+          curl http://localhost:8081/weatherForecast
+
           curl http://localhost:8081/weatherForecast
 
           
