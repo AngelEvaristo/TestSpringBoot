@@ -25,8 +25,8 @@ FROM mcr.microsoft.com/openjdk/jdk:17-ubuntu AS production
 WORKDIR /app
 
 # Copiar solo el jar desde el build stage
-COPY --from=build /app/target/*.jar app.jar
-
+COPY --from=build /app/target/spring-boot-docker.jar app.jar
+RUN ls -l /app
 # Exponer el puerto de Spring Boot
 EXPOSE 8080
 
