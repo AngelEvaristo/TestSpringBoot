@@ -66,6 +66,7 @@ jobs:
           docker run -d --name mi-contenedor -p 8081:8081 -e SERVER_ADDRESS=0.0.0.0 mi-app:1.0
           echo -e "\e[32mBuild componente\e[0m"
           docker ps -a
+          sleep 20
           echo -e "\e[32mBuild componente\e[0m"
           docker ps
           echo -e "\e[32mLOGS\e[0m"      
