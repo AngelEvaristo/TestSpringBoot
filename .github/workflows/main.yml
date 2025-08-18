@@ -49,11 +49,7 @@ jobs:
           IMAGE_TAG: ${{ needs.extract-version.outputs.app_version }}      
         run: |
           echo -e "\e[32mBuild componente\e[0m"
-          docker build -t mi-app:1.0 .      
-          echo -e "\e[32mBuild componente\e[0m"
-          docker build -t mi-app:2.0 .       
-          echo -e "\e[32mBuild componente\e[0m"
-          docker build -t mi-appbkp:2.0 .                   
+          docker build -t mi-app:1.0 .                     
           # echo -e "\e[32mBuild componente\e[0m"
           # docker build -t $ACR_REGISTRY/$ACR_REPOSITORY:$IMAGE_TAG .
           # echo -e "\e[32mPush componente\e[0m"
