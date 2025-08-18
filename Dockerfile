@@ -27,11 +27,8 @@ WORKDIR /app
 # Copiar solo el jar desde el build stage
 COPY --from=build /app/target/spring-boot-docker.jar app.jar
 
-ENV SERVER_PORT=8080
-ENV SERVER_ADDRESS=0.0.0.0
-
 # Exponer el puerto de Spring Boot
-EXPOSE 8080
+EXPOSE 8081
 
 # Comando de arranque
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
